@@ -1,7 +1,20 @@
 # markdown-it-table-of-contents
-A table of contents plugin for Markdown-it. Based on https://github.com/samchrisinger/markdown-it-toc but
-simpler, a bit more customizable and with a default slugifier that matches that of https://www.npmjs.com/package/markdown-it-anchor.
+A table of contents plugin for Markdown-it. Based on https://github.com/oktavilla/markdown-it-table-of-contents but
+with some additional features to support ILM attribute based overrides. For example, in ILM, only headers with an explicit class .toc(1-4) get added to the table of contents at the level specified. Moreover the optional attribute 'toc' overrides the contents displayed. 
 
+For example:
+
+```
+# Title not Shown TOC {.maintitle}
+
+## Chapter 4. This is Shown in TOC   {.toc1 toc="4. TOC Title"}
+
+### This is a subtitle not shown in TOC
+
+### This one is shown at level 2 {.toc2}
+```
+
+ 
 ## Usage
 
 ``` javascript
@@ -9,47 +22,12 @@ var MarkdownIt = require("markdown-it");
 var md = new MarkdownIt();
 
 md.use(require("markdown-it-anchor")); // Optional, but makes sense as you really want to link to something
-md.use(require("markdown-it-table-of-contents"));
+md.use(require("markdown-it-toc-ilm"));
 ```
 
 Then add `[[toc]]` where you want the table of contents to be added in your markdown.
 
-## Example markdown
-
-This markdown:
-``` markdown
-# Heading
-
-[[toc]]
-
-## Sub heading 1
-Some nice text
-
-## Sub heading 2
-Some even nicer text
-```
-
-... would render this HTML using the default options specified in "usage" above:
-``` html
-<h1 id="heading">Heading</h1>
-
-<div class="table-of-contents">
-  <ul>
-    <li><a href="#heading">Heading</a>
-      <ul>
-        <li><a href="#sub-heading-1">Sub heading 1</a></li>
-        <li><a href="#sub-heading-2">Sub heading 2</a></li>
-      </ul>
-    </li>
-  </ul>
-</div>
-
-<h2 id="sub-heading-1">Sub heading 1</h2>
-<p>Some nice text</p>
-
-<h2 id="sub-heading-2">Sub heading 2</h2>
-<p>Some even nicer text</p>
-```
+When using with md-ilm module, the parsing object returns a field `toc` with a useful Table of Contents object.
 
 ## Options
 
@@ -68,6 +46,7 @@ Name              | Description                                         | Defaul
 "markerPattern"   | Regex pattern of the marker to be replaced with TOC | `/^\[\[toc\]\]/im`
 "listType"        | Type of list (`ul` for unordered, `ol` for ordered) | `ul`
 "format"          | A function for formatting headings (see below)      | `undefined`
+"override_toc"    | A function for overriding default selection rules   | `undefined`
 
 
 `format` is an optional function for changing how the headings are displayed in the TOC.
@@ -75,6 +54,16 @@ Name              | Description                                         | Defaul
 function format(headingAsString) {
   // manipulate the headings as you like here.
   return manipulatedHeadingString;
+}
+```
+
+`override_toc` is an optional function for overriding header selection rules.
+```js
+function override_toc(heading, op) {
+  // op = {isShown (true), displayText (heading), level (1-4}
+  // read heading.text, heading.classes, heading.attrs, heading.tag
+  // modify and return op: {isShown (bool), displayText (str), level (1-4)} 
+  return op;
 }
 ```
 
