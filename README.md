@@ -2,6 +2,8 @@
 A table of contents plugin for Markdown-it. Based on https://github.com/oktavilla/markdown-it-table-of-contents but
 with some additional features to support ILM attribute based overrides. For example, in ILM, only headers with an explicit class .toc(1-4) get added to the table of contents at the level specified. Moreover the optional attribute 'toc' overrides the contents displayed. 
 
+(ILM is a private text editor for producing custom audio-aligned ebooks supporting random-access to contents.)
+
 For example:
 
 ```
