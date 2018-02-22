@@ -7,7 +7,7 @@ For example:
 ```
 # Title not Shown TOC {.maintitle}
 
-## Chapter 4. This is Shown in TOC   {.toc1 toc="4. TOC Title"}
+## Chapter 4. This is Shown in TOC but with a much shorter display title   {.toc1 toc="4. Shorter Title"}
 
 ### This is a subtitle not shown in TOC
 
