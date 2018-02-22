@@ -1,7 +1,7 @@
 {
   "license": "MIT",
   "version": "0.3.3",
-  "name": "markdown-it-table-of-contents",
+  "name": "markdown-it-toc-ilm",
   "main": "index.js",
   "scripts": {
     "test": "export NODE_ENV=test; mocha test --recursive"
