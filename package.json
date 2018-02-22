@@ -6,24 +6,25 @@
   "scripts": {
     "test": "export NODE_ENV=test; mocha test --recursive"
   },
-  "description": "A Markdown-it plugin for adding a table of contents to markdown documents",
-  "homepage": "https://github.com/Oktavilla/markdown-it-table-of-contents",
+  "description": "A Markdown-it plugin for extracting TOC from markdown with attributes",
+  "homepage": "https://github.com/chadananda/markdown-it-toc-ilm",
   "keywords": [
     "markdown",
     "markdown-it",
     "toc",
     "table of contents",
-    "markdown-it-plugin"
+    "markdown-it-plugin",
+    "ILM"
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/Oktavilla/markdown-it-table-of-contents.git"
+    "url": "https://github.com/chadananda/markdown-it-toc-ilm"
   },
   "bugs": {
-    "url": "https://github.com/Oktavilla/markdown-it-table-of-contents/issues"
+    "url": "https://github.com/chadananda/markdown-it-toc-ilm/issues"
   },
-  "author": "Oktavilla <https://github.com/Oktavilla>",
-  "contributors": "Listed at <https://github.com/Oktavilla/markdown-it-table-of-contents/contributors>",
+  "author": "Chadananda <https://github.com/Chadananda>",
+  "contributors": "",
   "dependencies": {
     "string": "~3.3.3",
     "lodash.assign": "~4.2.0"
