@@ -96,8 +96,14 @@ module.exports = function(md, options) {
       if (attrs) attrs.forEach( att => {if (att[0]==='class') classes=att[1].trim().split(' ')})
       if (['title','subtitle','author','copyright','copy','notoc'].filter(ex => classes.includes(ex)).length) {
         i++; continue;
-      }        
-      //console.log(attrs, classes)
+      }   
+      
+      // in case heading.content has curly attrs, remove curly part from content
+      heading.content = heading.content.replace(/\{.*?\}\s?$/g, '')
+      
+      var heading_id = options.slugify(heading.content)
+      if (attrs) attrs.forEach( att => {if (att[0]==='id') heading_id=att[1].trim()})    
+      console.log(heading_id)
         
        
       // token : {
@@ -137,7 +143,8 @@ module.exports = function(md, options) {
           headings.push(buffer);
         }
       }
-      buffer = "<li><a href=\"#" + options.slugify(heading.content) + "\">";
+      //buffer = "<li><a href=\"#" + options.slugify(heading.content) + "\">";
+      buffer = "<li><a href=\"#" + heading_id + "\">";
       //buffer += typeof options.format === "function" ? options.format(heading.content) : heading.content;
       buffer += typeof options.format === "function" ? options.format(display) : display;
       buffer += "</a>";
