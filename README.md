@@ -7,13 +7,13 @@ with some additional features to support ILM attribute based overrides. For exam
 For example:
 
 ```
-# Title not Shown TOC {.maintitle}
+# Title not Shown TOC {.title}
 
-## Chapter 4. This is Shown in TOC but with a much shorter display title   {.toc1 toc="4. Shorter Title"}
+## Chapter 4. This is Shown in TOC but with a much shorter display title   {toc="4. Shorter Title"}
 
-### This is a subtitle not shown in TOC
+### This is a subtitle not shown in TOC {.notoc}
 
-### This one is shown at level 2 {.toc2}
+### This one is shown in TOC
 ```
 
  
