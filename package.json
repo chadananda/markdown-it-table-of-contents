@@ -30,8 +30,9 @@
     "lodash.assign": "~4.2.0"
   },
   "devDependencies": {
-    "mocha": "~3.1.2",
     "markdown-it": "~8.1.0",
-    "markdown-it-anchor": "~2.6.0"
+    "markdown-it-anchor": "~2.6.0",
+    "markdown-it-attrs": "^1.2.1",
+    "mocha": "~3.1.2"
   }
 }

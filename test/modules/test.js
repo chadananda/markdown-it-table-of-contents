@@ -4,6 +4,7 @@ var fs = require("fs");
 var MarkdownIt = require("markdown-it");
 var markdownItAnchor = require("markdown-it-anchor");
 var markdownItTOC = require("../../index");
+var markdownItAttr = require("markdown-it-attrs")
 
 // Defaults
 var defaultContainerClass = "table-of-contents";
@@ -13,7 +14,9 @@ var defaultHeading1 = "Sub heading 1";
 
 // Fixtures
 var simpleMarkdown = fs.readFileSync("test/fixtures/simple.md", "utf-8");
+var ilmMarkdown = fs.readFileSync("test/fixtures/ilm.md", "utf-8");
 var simpleDefaultHTML = fs.readFileSync("test/fixtures/simple-default.html", "utf-8");
+var ilmHTML = fs.readFileSync("test/fixtures/ilm-default.html", "utf-8");
 var simple1LevelHTML = fs.readFileSync("test/fixtures/simple-1-level.html", "utf-8");
 var simpleWithAnchorsHTML = fs.readFileSync("test/fixtures/simple-with-anchors.html", "utf-8");
 var emptyMarkdown = defaultMarker;
@@ -22,6 +25,7 @@ var emptyMarkdownHtml = fs.readFileSync("test/fixtures/empty.html", "utf-8");
 
 describe("Testing Markdown rendering", function() {
   var md = new MarkdownIt();
+  md.use(markdownItAttr)
 
   it("Parses correctly with default settings", function(done) {
     md.use(markdownItTOC);
@@ -76,8 +80,9 @@ describe("Testing Markdown rendering", function() {
     });
     assert.equal(md.render(simpleMarkdown), simpleDefaultHTML.replace(defaultHeading1, customHeading));
     done();
-  });
-
+  }); 
+  
+  
   it("Slugs matches markdown-it-anchor", function(done) {
     md.use(markdownItAnchor);
     md.use(markdownItTOC);
@@ -85,9 +90,22 @@ describe("Testing Markdown rendering", function() {
     done();
   });
 
+
   it("Generates empty TOC", function(done) {
     md.use(markdownItTOC);
     assert.equal(md.render(emptyMarkdown), emptyMarkdownHtml);
     done();
-  })
+  });
+  
+  
+  it("Parses ILM overrides correctly", function(done) {  
+    md = new MarkdownIt()
+    md.use(markdownItAttr)
+    md.use(markdownItTOC)
+    //console.log(md.render(ilmMarkdown))
+    assert.equal(md.render(ilmMarkdown), ilmHTML);
+    done();
+  }) 
+  
+  
 });

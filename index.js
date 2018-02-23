@@ -9,6 +9,7 @@ var defaults = {
   },
   markerPattern: /^\[\[toc\]\]/im,
   listType: "ul",
+  ilmStyle: false,
   format: undefined
 };
 
@@ -67,6 +68,8 @@ module.exports = function(md, options) {
   };
 
   function renderChildsTokens(pos, tokens) {
+    //console.log('\n\n ==================== \n', tokens)
+    
     var headings = [],
         buffer = '',
         currentLevel,
@@ -74,12 +77,45 @@ module.exports = function(md, options) {
         size = tokens.length,
         i = pos;
     while(i < size) {
-      var token = tokens[i];
-      var heading = tokens[i - 1];
+      var token = tokens[i]; 
+      var heading = tokens[i - 1]; 
       var level = token.tag && parseInt(token.tag.substr(1, 1));
       if (token.type !== "heading_close" || options.includeLevel.indexOf(level) == -1 || heading.type !== "inline") {
         i++; continue; // Skip if not matching criteria
-      }
+      } 
+      
+      // replace display with toc=""
+      var attrs = tokens[i-2].attrs
+      var display = ''
+      if (attrs) attrs.forEach( att => {if (att[0]==='toc') display=att[1]})
+      if (!display) display = heading.content
+      //console.log(attrs)
+ 
+      // skip headers of type .title .subtitle .author .copy .notoc
+      var classes = []
+      if (attrs) attrs.forEach( att => {if (att[0]==='class') classes=att[1].trim().split(' ')})
+      if (['title','subtitle','author','copyright','copy','notoc'].filter(ex => classes.includes(ex)).length) {
+        i++; continue;
+      }        
+      //console.log(attrs, classes)
+        
+       
+      // token : {
+      //     type: 'heading_close',
+      //     tag: 'h2',
+      //     attrs: null,
+      //     map: null,
+      //     nesting: -1,
+      //     level: 0,
+      //     children: null,
+      //     content: '',
+      //     markup: '##',
+      //     info: '',
+      //     meta: null,
+      //     block: true,
+      //     hidden: false
+      // }
+      
       if (!currentLevel) {
         currentLevel = level;// We init with the first found level
       } else {
@@ -102,7 +138,8 @@ module.exports = function(md, options) {
         }
       }
       buffer = "<li><a href=\"#" + options.slugify(heading.content) + "\">";
-      buffer += typeof options.format === "function" ? options.format(heading.content) : heading.content;
+      //buffer += typeof options.format === "function" ? options.format(heading.content) : heading.content;
+      buffer += typeof options.format === "function" ? options.format(display) : display;
       buffer += "</a>";
       i++;
     }
@@ -118,4 +155,5 @@ module.exports = function(md, options) {
 
   // Insert TOC
   md.inline.ruler.after("emphasis", "toc", toc);
+  //md.inline.ruler.after("curlyAttrs", "toc", toc);
 };

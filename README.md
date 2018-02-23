@@ -48,6 +48,7 @@ Name              | Description                                         | Defaul
 "markerPattern"   | Regex pattern of the marker to be replaced with TOC | `/^\[\[toc\]\]/im`
 "listType"        | Type of list (`ul` for unordered, `ol` for ordered) | `ul`
 "format"          | A function for formatting headings (see below)      | `undefined`
+"ilmStyle"        | Follow ilm-style TOC rules (keep compatibility)     |  false
 "override_toc"    | A function for overriding default selection rules   | `undefined`
 
 
