@@ -94,7 +94,7 @@ module.exports = function(md, options) {
       // skip headers of type .title .subtitle .author .copy .notoc
       var classes = []
       if (attrs) attrs.forEach( att => {if (att[0]==='class') classes=att[1].trim().split(' ')})
-      if (['title','subtitle','author','copyright','copy','notoc'].filter(ex => classes.includes(ex)).length) {
+      if (['title','subtitle','author','copyright','copy','toc', 'notoc'].filter(ex => classes.includes(ex)).length) {
         i++; continue;
       }   
       
