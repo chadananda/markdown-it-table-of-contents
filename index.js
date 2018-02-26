@@ -89,7 +89,8 @@ module.exports = function(md, options) {
       var display = ''
       if (attrs) attrs.forEach( att => {if (att[0]==='toc') display=att[1]})
       if (!display) display = heading.content
-      //console.log(attrs)
+      // remove line breaks, if any  
+      display = display.replace(/\n/g, ' ').replace(/<br[\/]?\s?>/g, '') 
  
       // skip headers of type .title .subtitle .author .copy .notoc
       var classes = []

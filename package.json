@@ -1,6 +1,6 @@
 {
   "license": "MIT",
-  "version": "0.3.5",
+  "version": "0.3.6",
   "name": "markdown-it-toc-ilm",
   "main": "index.js",
   "scripts": {
@@ -26,8 +26,9 @@
   "author": "Chadananda <https://github.com/Chadananda>",
   "contributors": "",
   "dependencies": {
-    "string": "~3.3.3",
-    "lodash.assign": "~4.2.0"
+    "lodash.assign": "~4.2.0",
+    "markdown-it-parnum": "^1.0.4",
+    "string": "~3.3.3"
   },
   "devDependencies": {
     "markdown-it": "~8.1.0",
