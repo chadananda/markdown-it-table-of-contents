@@ -90,7 +90,7 @@ module.exports = function(md, options) {
       if (attrs) attrs.forEach( att => {if (att[0]==='toc') display=att[1]})
       if (!display) display = heading.content
       // remove line breaks, if any  
-      display = display.replace(/\n/g, ' ').replace(/<br[\/]?\s?>/g, '') 
+      display = display.replace(/\n/g, ' ').replace(/<br[\/]?\s?>/g, '')  
  
       // skip headers of type .title .subtitle .author .copy .notoc
       var classes = []
@@ -104,9 +104,9 @@ module.exports = function(md, options) {
       
       var heading_id = options.slugify(heading.content)
       if (attrs) attrs.forEach( att => {if (att[0]==='id') heading_id=att[1].trim()})    
-      console.log(heading_id)
+      //console.log(heading_id)
         
-       
+        
       // token : {
       //     type: 'heading_close',
       //     tag: 'h2',
@@ -143,10 +143,8 @@ module.exports = function(md, options) {
           buffer += "</li>";
           headings.push(buffer);
         }
-      }
-      //buffer = "<li><a href=\"#" + options.slugify(heading.content) + "\">";
-      buffer = "<li><a href=\"#" + heading_id + "\">";
-      //buffer += typeof options.format === "function" ? options.format(heading.content) : heading.content;
+      } 
+      buffer = "<li><a href=\"#" + heading_id + "\">"; 
       buffer += typeof options.format === "function" ? options.format(display) : display;
       buffer += "</a>";
       i++;

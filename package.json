@@ -1,6 +1,6 @@
 {
   "license": "MIT",
-  "version": "0.3.6",
+  "version": "0.3.7",
   "name": "markdown-it-toc-ilm",
   "main": "index.js",
   "scripts": {
